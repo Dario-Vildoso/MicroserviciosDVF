@@ -1,7 +1,7 @@
-<% include('layout', { body: null }) %>
+<%- include('layout', { body: null }) %>
 <h2>Agenda
 </h2>
-<table>
+<table border="1" style="width: 100%; border-collapse: collapse;">
 <thead>
 <tr>
 <th>Nombres</th>
@@ -23,8 +23,8 @@
 <td><%= usuario.celular %></td>
 <td><%= usuario.correo %></td>
 <td>
-<a href="/edit/<%= usuario.Id %>">Editar</a>
-<a href="/delete/<%= usuario.Id %>">Eliminar</a>
+<a href="/edit/<%= usuario.id %>">Editar</a>
+<a href="/delete/<%= usuario.id %>">Eliminar</a>
 </td>
 </tr>
 <% }) %>

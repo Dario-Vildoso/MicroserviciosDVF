@@ -1,17 +1,17 @@
-<% include('layout', { body: null }) %>
+<%- include('layout', { body: null }) %>
 <h2>Agregar Producto</h2>
 <form action="/add" method="POST">
 <label>Nombres: <input type="text" name="Nombres"
-required></label>
+required></label> <br>
 <label>Apellidos: <input type="text" name="Apellidos"
-step="0.01" required></label>
+required></label><br>
 <label>Fecha de Nacimiento: <input type="date" name="Fecha_Nacimiento"
-required></label>
+required></label><br>
 <label>Direccion: <input type="text" name="Direccion"
-required></label>
+required></label><br>
 <label>Celular: <input type="text" name="Celular"
-required></label>
+required></label><br>
 <label>Correo: <input type="email" name="Correo"
-required></label>
+required></label><br>
 <button type="submit">Guardar</button>
 </form>

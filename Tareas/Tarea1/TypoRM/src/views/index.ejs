@@ -1,15 +1,23 @@
 <h1>Agenda</h1>
 <a href="/nuevo">Nuevo Contacto</a>
-<table border="1">
+<table border="1" style="width: 100%; border-collapse: collapse;">
   <tr>
     <th>Nombres</th>
     <th>Apellidos</th>
+    <th>Fecha de Nacimiento</th>
+    <th>Direccion</th>
+    <th>Celular</th>
+    <th>Correo</th>
     <th>Acciones</th>
   </tr>
   <% agendas.forEach(a => { %>
     <tr>
       <td><%= a.nombres %></td>
       <td><%= a.apellidos %></td>
+      <td><%= a.fecha_nacimiento %></td>
+      <td><%= a.direccion %></td>
+      <td><%= a.celular %></td>
+      <td><%= a.correo %></td>
       <td>
         <a href="/editar/<%= a.id %>">Editar</a>
         <form action="/eliminar/<%= a.id %>" method="POST" style="display:inline">
