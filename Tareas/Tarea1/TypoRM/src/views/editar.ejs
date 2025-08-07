@@ -1,0 +1,11 @@
+<h1>Editar Contacto</h1>
+<form action="/editar/<%= agenda.id %>" method="POST">
+  <input name="nombres" value="<%= agenda.nombres %>" required><br>
+  <input name="apellidos" value="<%= agenda.apellidos %>" required><br>
+  <input type="date" name="fecha_nacimiento" value="<%= new Date(agenda.fecha_nacimiento).toISOString().split('T')[0] %>" required><br>
+  <input name="direccion" value="<%= agenda.direccion %>"><br>
+  <input name="celular" value="<%= agenda.celular %>"><br>
+  <input name="correo" value="<%= agenda.correo %>"><br>
+  <button type="submit">Actualizar</button>
+</form>
+<a href="/">Volver</a>

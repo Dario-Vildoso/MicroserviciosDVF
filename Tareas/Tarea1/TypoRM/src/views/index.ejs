@@ -1,0 +1,21 @@
+<h1>Agenda</h1>
+<a href="/nuevo">Nuevo Contacto</a>
+<table border="1">
+  <tr>
+    <th>Nombres</th>
+    <th>Apellidos</th>
+    <th>Acciones</th>
+  </tr>
+  <% agendas.forEach(a => { %>
+    <tr>
+      <td><%= a.nombres %></td>
+      <td><%= a.apellidos %></td>
+      <td>
+        <a href="/editar/<%= a.id %>">Editar</a>
+        <form action="/eliminar/<%= a.id %>" method="POST" style="display:inline">
+          <button type="submit">Eliminar</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
+</table>

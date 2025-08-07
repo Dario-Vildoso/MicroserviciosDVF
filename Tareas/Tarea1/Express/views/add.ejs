@@ -1,0 +1,17 @@
+<% include('layout', { body: null }) %>
+<h2>Agregar Producto</h2>
+<form action="/add" method="POST">
+<label>Nombres: <input type="text" name="Nombres"
+required></label>
+<label>Apellidos: <input type="text" name="Apellidos"
+step="0.01" required></label>
+<label>Fecha de Nacimiento: <input type="date" name="Fecha_Nacimiento"
+required></label>
+<label>Direccion: <input type="text" name="Direccion"
+required></label>
+<label>Celular: <input type="text" name="Celular"
+required></label>
+<label>Correo: <input type="email" name="Correo"
+required></label>
+<button type="submit">Guardar</button>
+</form>

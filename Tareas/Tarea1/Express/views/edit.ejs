@@ -1,0 +1,17 @@
+<% include('layout', { body: null }) %>
+<h2>Editar Usuario</h2>
+<form action="/edit/<%= usuario.Id %>" method="POST">
+<label>Nombres: <input type="text" name="Nombres"
+value="<%= usuario.nombres %>" required></label>
+<label>Apellidos: <input type="text" name="Apellidos"
+value="<%= usuario.apellidos %>" required></label>
+<label>Fecha de Nacimiento: <input type="date" name="Fecha_Nacimiento"
+value="<%= usuario.fecha_nacimiento %>" required></label>
+<label>Direccion: <input type="text" name="Direccion"
+value="<%= usuario.direccion %>" required></label>
+<label>Celular: <input type="text" name="Celular"
+value="<%= usuario.celular %>" required></label>
+<label>Correo: <input type="email" name="Correo"
+value="<%= usuario.correo %>" required></label>
+<button type="submit">Actualizar</button>
+</form>
