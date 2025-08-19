@@ -1,0 +1,32 @@
+<%- include('layout', { body: null }) %>
+<h2>Agenda
+</h2>
+<table border="1" style="width: 100%; border-collapse: collapse;">
+<thead>
+<tr>
+<th>Nombres</th>
+<th>Apellidos</th>
+<th>Fecha de nacimiento</th>
+<th>Direccion</th>
+<th>Celular</th>
+<th>Correo</th>
+<th>Acciones</th>
+</tr>
+</thead>
+<tbody>
+<% usuarios.forEach(usuario => { %>
+<tr>
+<td><%= usuario.nombres %></td>
+<td><%= usuario.apellidos %></td>
+<td><%= usuario.fecha_nacimiento %></td>
+<td><%= usuario.direccion %></td>
+<td><%= usuario.celular %></td>
+<td><%= usuario.correo %></td>
+<td>
+<a href="/edit/<%= usuario.id %>">Editar</a>
+<a href="/delete/<%= usuario.id %>">Eliminar</a>
+</td>
+</tr>
+<% }) %>
+</tbody>
+</table>
