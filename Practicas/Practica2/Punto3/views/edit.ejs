@@ -1,0 +1,15 @@
+<%- include('layout', { body: null }) %>
+<h2>Editar Usuario</h2>
+<form action="/edit/<%= tarea.id %>" method="POST">
+<label>Título: <input type="text" name="titulo" value="<%= tarea.titulo %>" required></label><br>
+<label>Descripción: <input type="text" name="descripcion" value="<%= tarea.descripcion %>" required></label><br>
+<label>Estado:
+    <select name="estado" required>
+        <option value="pendiente" <%= tarea.estado === 'pendiente' ? 'selected' : '' %>>Pendiente</option>
+        <option value="en_progreso" <%= tarea.estado === 'en_progreso' ? 'selected' : '' %>>En progreso</option>
+        <option value="completado" <%= tarea.estado === 'completado' ? 'selected' : '' %>>Completado</option>
+    </select>
+</label><br>
+
+<button type="submit">Actualizar</button>
+</form>

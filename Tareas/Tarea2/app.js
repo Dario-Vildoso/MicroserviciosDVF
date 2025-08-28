@@ -7,13 +7,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public')); 
 app.set('view engine', 'ejs');
 
-// Conexión a MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/bd_ventas', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
 
-// Definir el esquema de Agenda
 const agendaSchema = new mongoose.Schema({
     nombres: String,
     apellidos: String,
@@ -25,7 +23,6 @@ const agendaSchema = new mongoose.Schema({
 
 const Agenda = mongoose.model('Agenda', agendaSchema);
 
-// Página principal: listar registros
 app.get('/', async (req, res) => {
     try {
         const usuarios = await Agenda.find();
@@ -35,12 +32,10 @@ app.get('/', async (req, res) => {
     }
 });
 
-// Mostrar formulario para agregar
 app.get('/add', (req, res) => {
     res.render('add');
 });
 
-// Procesar formulario para agregar
 app.post('/add', async (req, res) => {
     try {
         const { Nombres, Apellidos, Fecha_Nacimiento, Direccion, Celular, Correo } = req.body;
@@ -59,7 +54,6 @@ app.post('/add', async (req, res) => {
     }
 });
 
-// Mostrar formulario para editar
 app.get('/edit/:id', async (req, res) => {
     try {
         const usuario = await Agenda.findById(req.params.id);
@@ -69,7 +63,6 @@ app.get('/edit/:id', async (req, res) => {
     }
 });
 
-// Procesar edición
 app.post('/edit/:id', async (req, res) => {
     try {
         const { Nombres, Apellidos, Fecha_Nacimiento, Direccion, Celular, Correo } = req.body;
@@ -87,7 +80,6 @@ app.post('/edit/:id', async (req, res) => {
     }
 });
 
-// Eliminar registro
 app.get('/delete/:id', async (req, res) => {
     try {
         await Agenda.findByIdAndDelete(req.params.id);
@@ -97,7 +89,6 @@ app.get('/delete/:id', async (req, res) => {
     }
 });
 
-// Iniciar servidor
 app.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');
 });

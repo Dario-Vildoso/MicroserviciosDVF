@@ -1,0 +1,27 @@
+<%- include('layout', { body: null }) %>
+<h2>Agenda
+</h2>
+<table border="1" style="width: 100%; border-collapse: collapse;">
+<thead>
+<tr>
+<th>Titulo</th>
+<th>Descripcion</th>
+<th>Estado</th>
+<th>Fecha de Creacion</th>
+</tr>
+</thead>
+<tbody>
+<% tareas.forEach(tarea => { %>
+<tr>
+<td><%= tarea.titulo %></td>
+<td><%= tarea.descripcion %></td>
+<td><%= tarea.estado %></td>
+<td><%= tarea.fechaCreacion %></td>
+<td>
+<a href="/edit/<%= tarea.id %>">Editar</a>
+<a href="/delete/<%= tarea.id %>">Eliminar</a>
+</td>
+</tr>
+<% }) %>
+</tbody>
+</table>
