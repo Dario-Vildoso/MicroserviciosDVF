@@ -10,38 +10,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /facturas/{factura_id}/detalles:
+ * /detalles/factura/{factura_id}:
  *   get:
- *     summary: Obtener detalles de una factura
- *     description: Retorna todos los detalles asociados a una factura específica.
+ *     summary: Obtener detalles por ID de factura
+ *     description: Retorna una lista de detalles para una factura específica.
  *     parameters:
  *       - in: path
  *         name: factura_id
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID de la factura a consultar.
+ *         description: ID de la factura para buscar detalles.
  *     responses:
  *       200:
- *         description: Lista de detalles obtenida correctamente.
+ *         description: Detalles de la factura obtenidos correctamente.
  *       404:
- *         description: Factura no encontrada o sin detalles.
+ *         description: Factura no encontrada.
+ *       500:
+ *         description: Error en el servidor.
  */
-router.get("/facturas/:factura_id/detalles", obtenerDetallesPorFactura);
+router.get("/factura/:factura_id", obtenerDetallesPorFactura);
 
 /**
  * @swagger
- * /facturas/{factura_id}/detalles:
- *   post:
- *     summary: Crear un detalle para una factura
- *     description: Crea un nuevo detalle asociado a una factura existente.
- *     parameters:
- *       - in: path
- *         name: factura_id
- *         required: true
- *         schema:
- *           type: integer
- *         description: ID de la factura a la que se le agrega el detalle.
+ * /detalles:
+ *   post: 
+ *     summary: Crear un detalle de factura
+ *     description: Añade un nuevo detalle a una factura existente.
  *     requestBody:
  *       required: true
  *       content:
@@ -49,29 +44,34 @@ router.get("/facturas/:factura_id/detalles", obtenerDetallesPorFactura);
  *           schema:
  *             type: object
  *             properties:
+ *               factura_id:
+ *                 type: integer
+ *                 description: ID de la factura a la que se añade el detalle.
  *               producto_id:
  *                 type: integer
- *                 example: 1
+ *                 description: ID del producto que se añade al detalle.
  *               cantidad:
  *                 type: integer
  *                 example: 3
  *               precio:
  *                 type: number
- *                 format: float
- *                 example: 59.99
+ *                 example: 29.99
  *     responses:
  *       201:
- *         description: Detalle creado correctamente.
+ *         description: Detalle de factura creado correctamente.
  *       400:
- *         description: Error en los datos enviados.
+ *         description: Solicitud inválida.
+ *       404:
+ *         description: Factura o producto no encontrado.
+ *       500:
+ *         description: Error en el servidor.
  */
-router.post("/facturas/:factura_id/detalles", crearDetalle);
-
+router.post("/", crearDetalle);
 /**
  * @swagger
  * /detalles/{id}:
  *   put:
- *     summary: Editar un detalle de factura
+ *     summary: Actualizar un detalle de factura
  *     description: Actualiza la información de un detalle de factura existente.
  *     parameters:
  *       - in: path
@@ -79,7 +79,7 @@ router.post("/facturas/:factura_id/detalles", crearDetalle);
  *         required: true
  *         schema:
  *           type: integer
- *         description: ID del detalle a editar.
+ *         description: ID del detalle a actualizar.
  *     requestBody:
  *       required: true
  *       content:
@@ -92,22 +92,22 @@ router.post("/facturas/:factura_id/detalles", crearDetalle);
  *                 example: 5
  *               precio:
  *                 type: number
- *                 format: float
- *                 example: 75.50
+ *                 example: 19.99
  *     responses:
  *       200:
- *         description: Detalle actualizado correctamente.
+ *         description: Detalle de factura actualizado correctamente.
  *       404:
  *         description: Detalle no encontrado.
+ *       500:
+ *         description: Error en el servidor.
  */
-router.put("/detalles/:id", editarDetalle);
-
+router.put("/:id", editarDetalle);
 /**
  * @swagger
  * /detalles/{id}:
  *   delete:
  *     summary: Eliminar un detalle de factura
- *     description: Elimina un detalle específico de la base de datos.
+ *     description: Elimina un detalle de factura existente.
  *     parameters:
  *       - in: path
  *         name: id
@@ -117,10 +117,12 @@ router.put("/detalles/:id", editarDetalle);
  *         description: ID del detalle a eliminar.
  *     responses:
  *       204:
- *         description: Detalle eliminado correctamente.
+ *         description: Detalle de factura eliminado correctamente.
  *       404:
  *         description: Detalle no encontrado.
+ *       500:
+ *         description: Error en el servidor.
  */
-router.delete("/detalles/:id", eliminarDetalle);
+router.delete("/:id", eliminarDetalle);
 
 module.exports = router;

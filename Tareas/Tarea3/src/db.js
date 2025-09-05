@@ -1,42 +1,26 @@
-import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
-dotenv.config();
+const { createConnection } = require("typeorm");
+const { Product } = require("./entity/Product");
+const { Invoice } = require("./entity/Invoice");
+const { Client } = require("./entity/Client");
+const { InvoiceDetail } = require("./entity/Invoicedetail");
 
-export const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: "mysql",
-    logging: false
+const connectDB = async () => {
+  try {
+    await createConnection({
+      type: "mysql",
+      host: process.env.DB_HOST, 
+      port: 3306, // Puerto de MySQL (por defecto)
+      username: process.env.DB_USER, 
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME, //Base de datos
+      entities: [Product, Invoice, Client, InvoiceDetail],
+      synchronize: true, // Solo para desarrollo (crea automáticamente las tablas)
+    });
+    console.log("Conexión a la base de datos establecida correctamente.");
+  } catch (error) {
+    console.error("Error al conectar a la base de datos:", error);
+    process.exit(1);
   }
-);
+};
 
-// modelos
-import Product from "./models/Product.js";
-import Client from "./models/Client.js";
-import Invoice from "./models/Invoice.js";
-import InvoiceDetail from "./models/InvoiceDetail.js";
-
-// inicializar modelos
-export const ProductModel = Product(sequelize);
-export const ClientModel  = Client(sequelize);
-export const InvoiceModel = Invoice(sequelize);
-export const InvoiceDetailModel = InvoiceDetail(sequelize);
-
-// asociaciones
-ClientModel.hasMany(InvoiceModel, { foreignKey: "cliente_id", as: "facturas" });
-InvoiceModel.belongsTo(ClientModel, { foreignKey: "cliente_id", as: "cliente" });
-
-InvoiceModel.hasMany(InvoiceDetailModel, { foreignKey: "factura_id", as: "detalles", onDelete: "CASCADE" });
-InvoiceDetailModel.belongsTo(InvoiceModel, { foreignKey: "factura_id", as: "factura" });
-
-ProductModel.hasMany(InvoiceDetailModel, { foreignKey: "producto_id", as: "detalles" });
-InvoiceDetailModel.belongsTo(ProductModel, { foreignKey: "producto_id", as: "producto" });
-
-export async function connectAndSync() {
-  await sequelize.authenticate();
-  await sequelize.sync(); // en dev: { alter: true } si quieres auto-migrar
-}
+module.exports = connectDB;
