@@ -21,7 +21,7 @@ module.exports.InvoiceDetail = new EntitySchema({
   relations: {
     factura: {
       type: "many-to-one",
-      target: "Invoice",
+      target: "Invoice",    
       inverseSide: "detalles",
       onDelete: "CASCADE",
     },

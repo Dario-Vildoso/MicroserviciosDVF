@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package universidad;
+
+option java_package = "com.universidad";
+option java_multiple_files = true;
+
+// Estudiante
+message Student {
+  string ci = 1;
+  string nombres = 2;
+  string apellidos = 3;
+  string carrera = 4;
+}
+
+// Curso
+message Course {
+  string codigo = 1;
+  string nombre = 2;
+  string docente = 3;
+}
+
+// Requests / Responses
+message StudentRequest { string ci = 1; }
+message CourseRequest  { string codigo = 1; }
+
+message StudentResponse {
+  Student student = 1;
+  string message = 2;
+}
+
+message CourseResponse {
+  Course course = 1;
+  string message = 2;
+}
+
+message InscripcionRequest {
+  string ci = 1;
+  string codigo = 2;
+}
+
+message InscripcionResponse {
+  bool ok = 1;
+  string message = 2;
+}
+
+message CoursesList {
+  repeated Course cursos = 1;
+}
+
+message StudentsList {
+  repeated Student estudiantes = 1;
+}
+
+// Servicio
+service Universidad {
+  rpc AgregarEstudiante (Student) returns (StudentResponse);
+  rpc AgregarCurso (Course) returns (CourseResponse);
+  rpc InscribirEstudiante (InscripcionRequest) returns (InscripcionResponse);
+
+  rpc ListarCursosDeEstudiante (StudentRequest) returns (CoursesList);
+  rpc ListarEstudiantesDeCurso (CourseRequest) returns (StudentsList);
+}
