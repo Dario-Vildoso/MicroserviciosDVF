@@ -1,0 +1,31 @@
+services:
+  app:
+    build: .
+    container_name: node_app
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mysql   # nombre del servicio
+      - DB_USER=root
+      - DB_PASSWORD=12345
+      - DB_NAME=medicos_db
+    depends_on:
+      - mysql
+    networks:
+      - my_network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_DATABASE=medicos_db
+    ports:
+      - "3306:3306"   # opcional, si quieres exponerlo fuera
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
