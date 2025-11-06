@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package vehicle;
+
+message CheckRequest {
+  string vehiculo_id = 1;
+}
+
+message CheckResponse {
+  bool available = 1;
+  string message = 2;
+}
+
+service VehicleService {
+  rpc CheckAvailability(CheckRequest) returns (CheckResponse);
+}
